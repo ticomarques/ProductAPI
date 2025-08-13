@@ -5,7 +5,6 @@ import io.github.cursodsousa.produtosapi.repository.ProdutoRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -20,11 +19,10 @@ public class ProdutoController {
 
     @PostMapping
     public Produto salvar(@RequestBody Produto produto){
-        System.out.println("Produto recebido: " + produto);
 
         var id = UUID.randomUUID().toString();
         produto.setId(id);
-        System.out.println("Produto recebido e com id gerado: " + produto);
+        System.out.println("Produto recebido, e com id gerado: " + produto);
 
         produtoRepository.save(produto);
         return produto;
@@ -54,4 +52,10 @@ public class ProdutoController {
     public List<Produto> buscar(@RequestParam("nome") String nome){
         return produtoRepository.findByNome(nome);
     }
+
+    @GetMapping("/all")
+    public List<Produto> listar(){
+        return produtoRepository.findAll();
+    }
+
 }
